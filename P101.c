@@ -22,9 +22,12 @@ HECTOR SAMUEL RIVERA RUIZ 17100287
 #INCLUDE <LCD1.C>
 INT Z = 0; //ETAPAS
 INT I = 0, J = 0, AUX = 0, CUENTA = 0, L = 0;//VARIABLES PARA CUENTAS
-INT R, E; //RECIBIR, ENVIAR
+INT R = 0; //RECIBIR
+CHAR E; //ENVIAR
 //VALOR REAL DE LA CUENTA
-INT RV [16] = {1, 2, 3, 100, 4, 5, 6, 100, 7, 8, 9, 100, 200, 0, 101, 100};
+//INT RV [16] = {1, 2, 3, 100, 4, 5, 6, 100, 7, 8, 9, 100, 200, 0, 101, 100};
+//VALOR DE CARACTERES
+CHAR CV [16] = {'1', '2', '3', 'A', '4', '5', '6', 'B', '7', '8', '9', 'C', '*', '0', '#', 'D'};
 
 VOID INICIO (){ //MUESTRA LOS MENSAJES DE INICIO
    LCD_GOTOXY(1,1);
@@ -121,17 +124,16 @@ VOID MAIN (){
       TECLADO (); //LEE EL TECLADO
       IF(CUENTA < 16){ //SI SE PRESIONA ALGUNA TECLA
          L = 1; //INDICA QUE YA SE EJECUTO ESTE PEDAZO DE CODIGO
-         IF(RV[CUENTA]<10){
-            E = RV[CUENTA];
-            LCD_GOTOXY(1,1);
-            PRINTF(LCD_PUTC, "ENVIANDO VALOR =\n        %u       ", E);
-            PUTC(E);
-            DELAY_MS(2000);
-         }
+         
+         E = CV[CUENTA];
+         LCD_GOTOXY(1,1);
+         PRINTF(LCD_PUTC, "ENVIANDO VALOR =\n        %c       ", E);
+         PUTC(E);
+         DELAY_MS(2000);
       }
       IF(L!=0){ //SI YA SE EJECUTO (L) MUESTRA ESTE MENSAJE
          LCD_GOTOXY(1,1);
-         PRINTF(LCD_PUTC, "  ULTIMA TECLA  \n PRESIONADA = %u ", E);
+         PRINTF(LCD_PUTC, "  ULTIMA TECLA  \n PRESIONADA = %c ", E);
       }
    }
 }
